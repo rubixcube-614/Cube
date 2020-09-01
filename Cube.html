@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cube</title>
+</head>
+<style>
+.joint{
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  transform: translateX(0px) translateY(0px) translateZ(0px);
+  transform-style: preserve-3d;
+}
+.image{
+  width: 100px;
+  height: 100px;
+}
+body{
+  background-color: #dedede;
+  position: absolute;
+}
+.clk{
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  border-radius: 100%;
+  border: 1px solid #4f4f4f;
+  background-color: white;
+  box-shadow: 0px 0px 4px #636363;
+}
+.butt{
+  width: 25px;
+  height: 50px;
+}
+.holder{
+  width: 150px;
+  height: 225px;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
+#up{
+  transform: translateX(75px);
+}
+#dn{
+  transform: translateX(75px) translateY(75px);
+}
+#rt{
+  transform: translateX(75px) translateY(150px);
+}
+#lt{
+  transform: translateY(150px);
+}
+#RtFClk{
+  transform: translateY(75px);
+}
+#UpFClk{
+  transform: translateY(0px);
+}
+#LtFClk{
+  transform: translateY(-75px);
+}
+#FtFClk{
+  transform: translateX(75px) translateY(-75px);
+}
+#BkFClk{
+  transform: translateX(-75px) translateY(-75px);
+}
+#DnFClk{
+  transform: translateX(-150px) translateY(150px);
+}
+#RtFAntiClk{
+  transform: translateX(-75px);
+}
+#UpFAntiClk{
+  transform: translateX(-75px) translateY(75px);
+}
+#LtFAntiClk{
+  transform: translateX(-75px) translateY(150px);
+}
+#FtFAntiClk{
+  transform: translateX(75px) translateY(-150px);
+}
+#BkFAntiClk{
+  transform: translateY(-150px);
+}
+#DnFAntiClk{
+  transform: translateX(-150px) translateY(75px);
+}
+.board{
+  perspective: 600px;
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  position: absolute;
+}
+.senscene{
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  box-sizing: border-box;
+  transform: rotateX(-30deg) rotateY(45deg);
+  transform-style: preserve-3d;
+}
+.scene{
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  box-sizing: border-box;
+  transform: rotateX(-30deg) rotateY(45deg);
+  transform-style: preserve-3d;
+}
+.cube{
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  transform-style: preserve-3d;
+  box-sizing: border-box;
+}
+#BULin{
+  transform: translateX(-100px) translateY(-100px) translateZ(-100px);
+}
+#BLin{
+  transform: translateX(-100px) translateZ(-100px);
+}
+#BDLin{
+  transform: translateX(-100px) translateY(100px) translateZ(-100px);
+}
+#BUin{
+  transform: translateY(-100px) translateZ(-100px);
+}
+#BC{
+  transform: translateX(0px) translateY(0px) translateZ(-100px);
+}
+#BDin{
+  transform: translateY(100px) translateZ(-100px);
+}
+#BURin{
+  transform: translateX(100px) translateY(-100px) translateZ(-100px);
+}
+#BRin{
+  transform: translateX(100px) translateZ(-100px);
+}
+#BDRin{
+  transform: translateX(100px) translateY(100px) translateZ(-100px);
+}
+#CULin{
+  transform: translateX(-100px) translateY(-100px) translateZ(0px);
+}
+#CL{
+  transform: translateX(-100px) translateZ(0px);
+}
+#CDLin{
+  transform: translateX(-100px) translateY(100px) translateZ(0px);
+}
+#CU{
+  transform: translateY(-100px) translateZ(0px);
+}
+#C{
+  transform: translateX(0px) translateY(0px) translateZ(0px);
+}
+#CD{
+  transform: translateY(100px) translateZ(0px);
+}
+#CURin{
+  transform: translateX(100px) translateY(-100px) translateZ(0px);
+}
+#CR{
+  transform: translateX(100px) translateZ(0px);
+}
+#CDRin{
+  transform: translateX(100px) translateY(100px) translateZ(0px);
+}
+#FULin{
+  transform: translateX(-100px) translateY(-100px) translateZ(100px);
+}
+#FLin{
+  transform: translateX(-100px) translateZ(100px);
+}
+#FDLin{
+  transform: translateX(-100px) translateY(100px) translateZ(100px);
+}
+#FUin{
+  transform: translateY(-100px) translateZ(100px);
+}
+#FC{
+  transform: translateX(0px) translateY(0px) translateZ(100px);
+}
+#FDin{
+  transform: translateY(100px) translateZ(100px);
+}
+#FURin{
+  transform: translateX(100px) translateY(-100px) translateZ(100px);
+}
+#FRin{
+  transform: translateX(100px) translateZ(100px);
+}
+#FDRin{
+  transform: translateX(100px) translateY(100px) translateZ(100px);
+}
+/*For sensing*/
+#BUL-AB{
+  transform: translateX(-100px) translateY(-100px) translateZ(-100px);
+}
+#BL-AB{
+  transform: translateX(-100px) translateZ(-100px);
+}
+#BDL-AB{
+  transform: translateX(-100px) translateY(100px) translateZ(-100px);
+}
+#BU-AB{
+  transform: translateY(-100px) translateZ(-100px);
+}
+#BC-AB{
+  transform: translateX(0px) translateY(0px) translateZ(-100px);
+}
+#BD-AB{
+  transform: translateY(100px) translateZ(-100px);
+}
+#BUR-AB{
+  transform: translateX(100px) translateY(-100px) translateZ(-100px);
+}
+#BR-AB{
+  transform: translateX(100px) translateZ(-100px);
+}
+#BDR-AB{
+  transform: translateX(100px) translateY(100px) translateZ(-100px);
+}
+#CUL-AB{
+  transform: translateX(-100px) translateY(-100px) translateZ(0px);
+}
+#CL-AB{
+  transform: translateX(-100px) translateZ(0px);
+}
+#CDL-AB{
+  transform: translateX(-100px) translateY(100px) translateZ(0px);
+}
+#CU-AB{
+  transform: translateY(-100px) translateZ(0px);
+}
+#C-AB{
+  transform: translateX(0px) translateY(0px) translateZ(0px);
+}
+#CD-AB{
+  transform: translateY(100px) translateZ(0px);
+}
+#CUR-AB{
+  transform: translateX(100px) translateY(-100px) translateZ(0px);
+}
+#CR-AB{
+  transform: translateX(100px) translateZ(0px);
+}
+#CDR-AB{
+  transform: translateX(100px) translateY(100px) translateZ(0px);
+}
+#FUL-AB{
+  transform: translateX(-100px) translateY(-100px) translateZ(100px);
+}
+#FL-AB{
+  transform: translateX(-100px) translateZ(100px);
+}
+#FDL-AB{
+  transform: translateX(-100px) translateY(100px) translateZ(100px);
+}
+#FU-AB{
+  transform: translateY(-100px) translateZ(100px);
+}
+#FC-AB{
+  transform: translateX(0px) translateY(0px) translateZ(100px);
+}
+#FD-AB{
+  transform: translateY(100px) translateZ(100px);
+}
+#FUR-AB{
+  transform: translateX(100px) translateY(-100px) translateZ(100px);
+}
+#FR-AB{
+  transform: translateX(100px) translateZ(100px);
+}
+#FDR-AB{
+  transform: translateX(100px) translateY(100px) translateZ(100px);
+}
+.FaceFront{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  transform: rotateY(0deg) translateZ(55px);
+}
+.FaceBack{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  transform: rotateY(180deg) translateZ(55px);
+}
+.FaceRight{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  transform: rotateY(90deg) translateZ(55px);
+}
+.FaceLeft{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  transform: rotateY(-90deg) translateZ(55px);
+}
+.FaceTop{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  transform: rotateX(90deg) translateZ(55px);
+}
+.FaceBottom{
+  position: absolute;
+  width: 100x;
+  height: 100px;
+  transform: rotateX(-90deg) translateZ(55px);
+}
+.Front{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  /*border: 1px solid black;*/
+  line-height: 100px;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  transform: rotateY(0deg) translateZ(50px);
+  background-color: black;
+  border-radius: 10px;
+  transform-style: preserve-3d;
+}
+.Back{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  /*border: 1px solid black;*/
+  line-height: 100px;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  transform: rotateY(180deg) translateZ(50px);
+  background-color: black;
+  border-radius: 10px;
+  transform-style: preserve-3d;
+}
+.Right{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  /*border: 1px solid black;*/
+  line-height: 100px;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  transform: rotateY(90deg) translateZ(50px);
+  background-color: black;
+  border-radius: 10px;
+  transform-style: preserve-3d;
+}
+.Left{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  /*border: 1px solid black;*/
+  line-height: 100px;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  transform: rotateY(-90deg) translateZ(50px);
+  background-color: black;
+  border-radius: 10px;
+  transform-style: preserve-3d;
+}
+.Top{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  /*border: 1px solid black;*/
+  line-height: 100px;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  transform: rotateX(90deg) translateZ(50px);
+  background-color: black;
+  border-radius: 10px;
+  transform-style: preserve-3d;
+}
+.Bottom{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  /*border: 1px solid black;*/
+  line-height: 100px;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  transform: rotateX(-90deg) translateZ(50px);
+  background-color: black;
+  border-radius: 10px;
+  transform-style: preserve-3d;
+}
+</style>
+<script>
+var x = ( 1 / 4 ) * window.innerHeight;
+
+function win(){
+  var h = window.innerHeight;
+  var w = window.innerWidth;
+  if (w > h) {
+    h = h - 100;
+    h = (h / 2) - 50;
+    w = (w / 2) - 50;
+    h = h + 'px';
+    w = w + 'px';
+    document.getElementById('board').style.margin = h + ' ' + w;
+  } else {
+    h = h - 200;
+    h = (h / 2) - 50;
+    w = (w / 2) - 50;
+    h = h + 'px';
+    w = w + 'px';
+    document.getElementById('board').style.margin = h + ' ' + w;
+  }
+  var h2 = window.innerHeight;
+  var z = h2 - x;
+  y = z / 450;
+  document.getElementById('board').style.transform = 'scale(' + y + ',' + y + ')';
+  document.getElementById('holder').style.transform = 'scale(' + y + ',' + y + ')';
+  //var h3 = window.innerHeight;
+  //x = h3 - z;
+}
+</script>
+<script src="Cube Data/Turn.js">
+</script>
+<body onkeydown="uniCharCode(event)" onload="win()" onresize="win()" onclick="rot()">
+<div  onkeydown="AntiClk(event)" id="board" class="board">
+  <div class="scene" id="scene">
+    <div id="BUL" class="joint">
+      <div class="cube" id="BULin">
+        <div id="Front" class="Front">
+        </div>
+        <div id="Back" class="Back">
+          <svg class="image" style="transform:rotateZ(180deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ff4b00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Right" class="Right">
+        </div>
+        <div id="Left" class="Left">
+          <svg class="image" style="transform:rotateZ(90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#00b900;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Top" class="Top">
+          <svg class="image" style="transform:rotateZ(90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffff00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Bottom" class="Bottom">
+        </div>
+      </div>
+    </div>
+    <div id="BU" class="joint">
+      <div class="cube" id="BUin">
+        <div id="Front" class="Front">
+        </div>
+        <div id="Back" class="Back">
+          <svg class="image" style="transform:rotateZ(90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ff4b00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Right" class="Right">
+        </div>
+        <div id="Left" class="Left">
+        </div>
+        <div id="Top" class="Top">
+          <svg class="image" style="transform:rotateZ(90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffff00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Bottom" class="Bottom">
+        </div>
+      </div>
+    </div>
+    <div id="BUR" class="joint">
+      <div class="cube" id="BURin">
+        <div id="Front" class="Front">
+        </div>
+        <div id="Back" class="Back">
+          <svg class="image" style="transform:rotateZ(90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ff4b00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Right" class="Right">
+          <svg class="image" style="transform:rotateZ(180deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#004fff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Left" class="Left">
+        </div>
+        <div id="Top" class="Top">
+          <svg class="image" style="transform:rotateZ(180deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffff00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Bottom" class="Bottom">
+        </div>
+      </div>
+    </div>
+    <div id="BL" class="joint">
+      <div class="cube" id="BLin">
+        <div id="Front" class="Front">
+        </div>
+        <div id="Back" class="Back">
+          <svg class="image" style="transform:rotateZ(180deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ff4b00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Right" class="Right">
+        </div>
+        <div id="Left" class="Left">
+          <svg class="image" style="transform:rotateZ(0deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#00b900;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Top" class="Top">
+        </div>
+        <div id="Bottom" class="Bottom">
+        </div>
+      </div>
+    </div>
+    <div id="BR" class="joint">
+      <div class="cube" id="BRin">
+        <div id="Front" class="Front">
+        </div>
+        <div id="Back" class="Back">
+          <svg class="image" style="transform:rotateZ(0deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ff4b00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Right" class="Right">
+          <svg class="image" style="transform:rotateZ(180deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#004fff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Left" class="Left">
+        </div>
+        <div id="Top" class="Top">
+        </div>
+        <div id="Bottom" class="Bottom">
+        </div>
+      </div>
+    </div>
+    <div id="BDL" class="joint">
+      <div class="cube" id="BDLin">
+        <div id="Front" class="Front">
+        </div>
+        <div id="Back" class="Back">
+          <svg class="image" style="transform:rotateZ(-90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ff4b00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Right" class="Right">
+        </div>
+        <div id="Left" class="Left">
+          <svg class="image" style="transform:rotateZ(0deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#00b900;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Top" class="Top">
+        </div>
+        <div id="Bottom" class="Bottom">
+          <svg class="image" style="transform:rotateZ(0deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffffff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+      </div>
+    </div>
+    <div id="BD" class="joint">
+      <div class="cube" id="BDin">
+        <div id="Front" class="Front">
+        </div>
+        <div id="Back" class="Back">
+          <svg class="image" style="transform:rotateZ(-90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ff4b00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Right" class="Right">
+        </div>
+        <div id="Left" class="Left">
+        </div>
+        <div id="Top" class="Top">
+        </div>
+        <div id="Bottom" class="Bottom">
+          <svg class="image" style="transform:rotateZ(-90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffffff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+      </div>
+    </div>
+    <div id="BDR" class="joint">
+      <div class="cube" id="BDRin">
+        <div id="Front" class="Front">
+        </div>
+        <div id="Back" class="Back">
+          <svg class="image" style="transform:rotateZ(0deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ff4b00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Right" class="Right">
+          <svg class="image" style="transform:rotateZ(-90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#004fff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Left" class="Left">
+        </div>
+        <div id="Top" class="Top">
+        </div>
+        <div id="Bottom" class="Bottom">
+          <svg class="image" style="transform:rotateZ(-90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffffff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+      </div>
+    </div>
+    <div id="CUL" class="joint">
+      <div class="cube" id="CULin">
+        <div id="Front" class="Front">
+        </div>
+        <div id="Back" class="Back">
+        </div>
+        <div id="Right" class="Right">
+        </div>
+        <div id="Left" class="Left">
+          <svg class="image" style="transform:rotateZ(90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#00b900;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Top" class="Top">
+          <svg class="image" style="transform:rotateZ(0deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffff00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Bottom" class="Bottom">
+        </div>
+      </div>
+    </div>
+    <div id="CUR" class="joint">
+      <div class="cube" id="CURin">
+        <div id="Front" class="Front">
+        </div>
+        <div id="Back" class="Back">
+        </div>
+        <div id="Right" class="Right">
+          <svg class="image" style="transform:rotateZ(90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#004fff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Left" class="Left">
+        </div>
+        <div id="Top" class="Top">
+          <svg class="image" style="transform:rotateZ(180deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffff00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Bottom" class="Bottom">
+        </div>
+      </div>
+    </div>
+    <div id="CDL" class="joint">
+      <div class="cube" id="CDLin">
+        <div id="Front" class="Front">
+        </div>
+        <div id="Back" class="Back">
+        </div>
+        <div id="Right" class="Right">
+        </div>
+        <div id="Left" class="Left">
+          <svg class="image" style="transform:rotateZ(-90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#00b900;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Top" class="Top">
+        </div>
+        <div id="Bottom" class="Bottom">
+          <svg class="image" style="transform:rotateZ(0deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffffff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+      </div>
+    </div>
+    <div id="CDR" class="joint">
+      <div class="cube" id="CDRin">
+        <div id="Front" class="Front">
+        </div>
+        <div id="Back" class="Back">
+        </div>
+        <div id="Right" class="Right">
+          <svg class="image" style="transform:rotateZ(-90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#004fff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Left" class="Left">
+        </div>
+        <div id="Top" class="Top">
+        </div>
+        <div id="Bottom" class="Bottom">
+          <svg class="image" style="transform:rotateZ(180deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffffff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+      </div>
+    </div>
+    <div id="FUL" class="joint">
+      <div class="cube" id="FULin">
+        <div id="Front" class="Front">
+          <svg class="image" style="transform:rotateZ(90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ff0000;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Back" class="Back">
+        </div>
+        <div id="Right" class="Right">
+        </div>
+        <div id="Left" class="Left">
+          <svg class="image" style="transform:rotateZ(180deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#00b900;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Top" class="Top">
+          <svg class="image" style="transform:rotateZ(0deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffff00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Bottom" class="Bottom">
+        </div>
+      </div>
+    </div>
+    <div id="FU" class="joint">
+      <div class="cube" id="FUin">
+        <div id="Front" class="Front">
+          <svg class="image" style="transform:rotateZ(90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#FF0000;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Back" class="Back">
+        </div>
+        <div id="Right" class="Right">
+        </div>
+        <div id="Left" class="Left">
+        </div>
+        <div id="Top" class="Top">
+          <svg class="image" style="transform:rotateZ(-90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffff00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Bottom" class="Bottom">
+        </div>
+      </div>
+    </div>
+    <div id="FUR" class="joint">
+      <div class="cube" id="FURin">
+        <div id="Front" class="Front">
+          <svg class="image" style="transform:rotateZ(180deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ff0000;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Back" class="Back">
+        </div>
+        <div id="Right" class="Right">
+          <svg class="image" style="transform:rotateZ(90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#004fff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Left" class="Left">
+        </div>
+        <div id="Top" class="Top">
+          <svg class="image" style="transform:rotateZ(-90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffff00;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Bottom" class="Bottom">
+        </div>
+      </div>
+    </div>
+    <div id="FL" class="joint">
+      <div class="cube" id="FLin">
+        <div id="Front" class="Front">
+          <svg class="image" style="transform:rotateZ(0deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#FF0000;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Back" class="Back">
+        </div>
+        <div id="Right" class="Right">
+        </div>
+        <div id="Left" class="Left">
+          <svg class="image" style="transform:rotateZ(180deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#00b900;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Top" class="Top">
+        </div>
+        <div id="Bottom" class="Bottom">
+        </div>
+      </div>
+    </div>
+    <div id="FR" class="joint">
+      <div class="cube" id="FRin">
+        <div id="Front" class="Front">
+          <svg class="image" style="transform:rotateZ(180deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#FF0000;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Back" class="Back">
+        </div>
+        <div id="Right" class="Right">
+          <svg class="image" style="transform:rotateZ(0deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#004fff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Left" class="Left">
+        </div>
+        <div id="Top" class="Top">
+        </div>
+        <div id="Bottom" class="Bottom">
+        </div>
+      </div>
+    </div>
+    <div id="FDL" class="joint">
+      <div class="cube" id="FDLin">
+        <div id="Front" class="Front">
+          <svg class="image" style="transform:rotateZ(0deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ff0000;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Back" class="Back">
+        </div>
+        <div id="Right" class="Right">
+        </div>
+        <div id="Left" class="Left">
+          <svg class="image" style="transform:rotateZ(-90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#00b900;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Top" class="Top">
+        </div>
+        <div id="Bottom" class="Bottom">
+          <svg class="image" style="transform:rotateZ(90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffffff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+      </div>
+    </div>
+    <div id="FD" class="joint">
+      <div class="cube" id="FDin">
+        <div id="Front" class="Front">
+          <svg class="image" style="transform:rotateZ(-90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#FF0000;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Back" class="Back">
+        </div>
+        <div id="Right" class="Right">
+        </div>
+        <div id="Left" class="Left">
+        </div>
+        <div id="Top" class="Top">
+        </div>
+        <div id="Bottom" class="Bottom">
+          <svg class="image" style="transform:rotateZ(90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_ZyoSCwslxtAigIV6YTYAwap2cAm47E3b)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><rect x="450" y="450" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffffff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+      </div>
+    </div>
+    <div id="FDR" class="joint">
+      <div class="cube" id="FDRin">
+        <div id="Front" class="Front">
+          <svg class="image" style="transform:rotateZ(-90deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ff0000;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Back" class="Back">
+        </div>
+        <div id="Right" class="Right">
+          <svg class="image" style="transform:rotateZ(0deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#004fff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+        <div id="Left" class="Left">
+        </div>
+        <div id="Top" class="Top">
+        </div>
+        <div id="Bottom" class="Bottom">
+          <svg class="image" style="transform:rotateZ(180deg) translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_mfVoF7JWcdeETXFrT1KznftEXzdLo6XJ)"><path d="M 50 0 L 450 0 C 477.596 0 500 22.404 500 50 L 500 450 C 500 477.596 477.596 500 450 500 L 50 500 C 22.404 500 0 477.596 0 450 L 0 50 C 0 22.404 22.404 0 50 0 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><rect x="450" y="0" width="50" height="50" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffffff;stroke-miterlimit:10;"/></g></svg class="image">
+        </div>
+      </div>
+    </div>
+
+    <div class="cube" id="BC">
+      <div id="Front" class="Front">
+      </div>
+      <div id="Back" class="Back">
+        <svg class="image" style="transform:translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_BUyvw4zLS0Kz28v4J0o7zvkwbwTzVE40"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_BUyvw4zLS0Kz28v4J0o7zvkwbwTzVE40)"><rect x="0" y="0" width="500" height="500" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ff4b00;stroke-miterlimit:10;"/></g></svg class="image">
+      </div>
+      <div id="Right" class="Right">
+      </div>
+      <div id="Left" class="Left">
+      </div>
+      <div id="Top" class="Top">
+      </div>
+      <div id="Bottom" class="Bottom">
+      </div>
+    </div>
+    <div class="cube" id="CL">
+      <div id="Front" class="Front">
+      </div>
+      <div id="Back" class="Back">
+      </div>
+      <div id="Right" class="Right">
+      </div>
+      <div id="Left" class="Left">
+        <svg class="image" style="transform:translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_BUyvw4zLS0Kz28v4J0o7zvkwbwTzVE40"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_BUyvw4zLS0Kz28v4J0o7zvkwbwTzVE40)"><rect x="0" y="0" width="500" height="500" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#00b900;stroke-miterlimit:10;"/></g></svg class="image">
+      </div>
+      <div id="Top" class="Top">
+      </div>
+      <div id="Bottom" class="Bottom">
+      </div>
+    </div>
+    <div class="cube" id="CU">
+      <div id="Front" class="Front">
+      </div>
+      <div id="Back" class="Back">
+      </div>
+      <div id="Right" class="Right">
+      </div>
+      <div id="Left" class="Left">
+      </div>
+      <div id="Top" class="Top">
+        <svg class="image" style="transform:translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_BUyvw4zLS0Kz28v4J0o7zvkwbwTzVE40"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_BUyvw4zLS0Kz28v4J0o7zvkwbwTzVE40)"><rect x="0" y="0" width="500" height="500" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffff00;stroke-miterlimit:10;"/></g></svg class="image">
+      </div>
+      <div id="Bottom" class="Bottom">
+      </div>
+    </div>
+    <div class="cube" id="C">
+      <div id="Front" class="Front">
+      </div>
+      <div id="Back" class="Back">
+      </div>
+      <div id="Right" class="Right">
+      </div>
+      <div id="Left" class="Left">
+      </div>
+      <div id="Top" class="Top">
+      </div>
+      <div id="Bottom" class="Bottom">
+      </div>
+    </div>
+    <div class="cube" id="CD">
+      <div id="Front" class="Front">
+      </div>
+      <div id="Back" class="Back">
+      </div>
+      <div id="Right" class="Right">
+      </div>
+      <div id="Left" class="Left">
+      </div>
+      <div id="Top" class="Top">
+      </div>
+      <div id="Bottom" class="Bottom">
+        <svg class="image" style="transform:translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_BUyvw4zLS0Kz28v4J0o7zvkwbwTzVE40"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_BUyvw4zLS0Kz28v4J0o7zvkwbwTzVE40)"><rect x="0" y="0" width="500" height="500" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#ffffff;stroke-miterlimit:10;"/></g></svg class="image">
+      </div>
+    </div>
+    <div class="cube" id="CR">
+      <div id="Front" class="Front">
+      </div>
+      <div id="Back" class="Back">
+      </div>
+      <div id="Right" class="Right">
+        <svg class="image" style="transform:translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_BUyvw4zLS0Kz28v4J0o7zvkwbwTzVE40"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_BUyvw4zLS0Kz28v4J0o7zvkwbwTzVE40)"><rect x="0" y="0" width="500" height="500" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#004fff;stroke-miterlimit:10;"/></g></svg class="image">
+      </div>
+      <div id="Left" class="Left">
+      </div>
+      <div id="Top" class="Top">
+      </div>
+      <div id="Bottom" class="Bottom">
+      </div>
+    </div>
+    <div class="cube" id="FC">
+      <div id="Front" class="Front">
+        <svg class="image" style="transform:translateZ(0.5px);" xmlns="http://www.w3.org/2000/svg class="image"" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 500 500" width="500pt" height="500pt"><defs><clipPath id="_clipPath_BUyvw4zLS0Kz28v4J0o7zvkwbwTzVE40"><rect width="500" height="500"/></clipPath></defs><g clip-path="url(#_clipPath_BUyvw4zLS0Kz28v4J0o7zvkwbwTzVE40)"><rect x="0" y="0" width="500" height="500" transform="matrix(1,0,0,1,0,0)" fill="rgb(0,0,0)"/><path d="M 55 5 L 445 5 C 472.596 5 495 27.404 495 55 L 495 445 C 495 472.596 472.596 495 445 495 L 55 495 C 27.404 495 5 472.596 5 445 L 5 55 C 5 27.404 27.404 5 55 5 Z" style="stroke:none;fill:#FF0000;stroke-miterlimit:10;"/></g></svg class="image">
+      </div>
+      <div id="Back" class="Back">
+      </div>
+      <div id="Right" class="Right">
+      </div>
+      <div id="Left" class="Left">
+      </div>
+      <div id="Top" class="Top">
+      </div>
+      <div id="Bottom" class="Bottom">
+      </div>
+    </div>
+  </div>
+  <div class="senscene" id="senscene">
+    <div class="cube" id="BUL-AB">
+      <div class="FaceFront">
+      </div>
+      <div class="FaceLeft" onclick="bulLt()">
+      </div>
+      <div class="FaceRight">
+      </div>
+      <div class="FaceTop" onclick="bulTp()">
+      </div>
+      <div class="FaceBottom">
+      </div>
+      <div class="FaceBack" onclick="bulBk()">
+      </div>
+    </div>
+    <div class="cube" id="BL-AB">
+    </div>
+    <div class="cube" id="BDL-AB">
+      <div class="FaceFront">
+      </div>
+      <div class="FaceLeft" onclick="bdlLt()">
+      </div>
+      <div class="FaceRight">
+      </div>
+      <div class="FaceTop">
+      </div>
+      <div class="FaceBottom" onclick="bdlBt()">
+      </div>
+      <div class="FaceBack" onclick="bdlBk()">
+      </div>
+    </div>
+    <div class="cube" id="BU-AB">
+    </div>
+    <div class="cube" id="BC-AB">
+    </div>
+    <div class="cube" id="BD-AB">
+    </div>
+    <div class="cube" id="BUR-AB">
+      <div class="FaceFront">
+      </div>
+      <div class="FaceLeft">
+      </div>
+      <div class="FaceRight" onclick="burRt()">
+      </div>
+      <div class="FaceTop" onclick="burTp()">
+      </div>
+      <div class="FaceBottom">
+      </div>
+      <div class="FaceBack" onclick="burBk()">
+      </div>
+    </div>
+    <div class="cube" id="BR-AB">
+    </div>
+    <div class="cube" id="BDR-AB">
+      <div class="FaceFront">
+      </div>
+      <div class="FaceLeft">
+      </div>
+      <div class="FaceRight" onclick="bdrRt()">
+      </div>
+      <div class="FaceTop">
+      </div>
+      <div class="FaceBottom" onclick="bdrBt()">
+      </div>
+      <div class="FaceBack" onclick="bdrBk()">
+      </div>
+    </div>
+    <div class="cube" id="CUL-AB">
+    </div>
+    <div class="cube" id="CL-AB">
+    </div>
+    <div class="cube" id="CDL-AB">
+    </div>
+    <div class="cube" id="CU-AB">
+    </div>
+    <div class="cube" id="C-AB">
+    </div>
+    <div class="cube" id="CD-AB">
+    </div>
+    <div class="cube" id="CUR-AB">
+    </div>
+    <div class="cube" id="CR-AB">
+    </div>
+    <div class="cube" id="CDR-AB">
+    </div>
+    <div class="cube" id="FUL-AB">
+      <div class="FaceFront" onclick="fulFt()">
+      </div>
+      <div class="FaceLeft" onclick="fulLt()">
+      </div>
+      <div class="FaceRight">
+      </div>
+      <div class="FaceTop" onclick="fulTp()">
+      </div>
+      <div class="FaceBottom">
+      </div>
+      <div class="FaceBack">
+      </div>
+    </div>
+    <div class="cube" id="FL-AB">
+    </div>
+    <div class="cube" id="FDL-AB">
+      <div class="FaceFront" onclick="fdlFt()">
+      </div>
+      <div class="FaceLeft" onclick="fdlLt()">
+      </div>
+      <div class="FaceRight">
+      </div>
+      <div class="FaceTop">
+      </div>
+      <div class="FaceBottom" onclick="fdlBt()">
+      </div>
+      <div class="FaceBack">
+      </div>
+    </div>
+    <div class="cube" id="FU-AB">
+    </div>
+    <div class="cube" id="FC-AB">
+    </div>
+    <div class="cube" id="FD-AB">
+    </div>
+    <div class="cube" id="FUR-AB">
+      <div class="FaceFront" onclick="furFt()">
+      </div>
+      <div class="FaceLeft">
+      </div>
+      <div class="FaceRight" onclick="furRt()">
+      </div>
+      <div class="FaceTop" onclick="furTp()">
+      </div>
+      <div class="FaceBottom">
+      </div>
+      <div class="FaceBack">
+      </div>
+    </div>
+    <div class="cube" id="FR-AB">
+    </div>
+    <div class="cube" id="FDR-AB">
+      <div class="FaceFront" onclick="fdrFt()">
+      </div>
+      <div class="FaceLeft">
+      </div>
+      <div class="FaceRight" onclick="fdrRt()">
+      </div>
+      <div class="FaceTop">
+      </div>
+      <div class="FaceBottom" onclick="fdrBt()">
+      </div>
+      <div class="FaceBack">
+      </div>
+    </div>
+  </div>
+</div>
+<div id="r1">
+</div>
+<div class="holder" id="holder">
+  <button onclick="rotXneg()" onmousedown="rotXneg()" class="clk" id="up"><svg class="butt" style="transform:;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 100 100" width="100pt" height="100pt"><defs><clipPath id="_clipPath_U5ns5oTiWTcb5cJGKO4Fbiv8d1iOYvaj"><rect width="100" height="100"/></clipPath></defs><g clip-path="url(#_clipPath_U5ns5oTiWTcb5cJGKO4Fbiv8d1iOYvaj)"><path d="M 50 20 L 50 20 C 51.38 20 52.5 21.12 52.5 22.5 L 52.5 77.5 C 52.5 78.88 51.38 80 50 80 L 50 80 C 48.62 80 47.5 78.88 47.5 77.5 L 47.5 22.5 C 47.5 21.12 48.62 20 50 20 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><path d="M 48.185 20.685 L 48.185 20.685 C 49.161 19.709 50.821 19.785 51.889 20.854 L 69.23 38.194 C 70.298 39.263 70.374 40.923 69.398 41.898 L 69.398 41.898 C 68.423 42.874 66.763 42.798 65.694 41.73 L 48.354 24.389 C 47.285 23.321 47.209 21.661 48.185 20.685 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><path d="M 50.245 20.732 L 50.245 20.732 C 51.221 21.707 51.221 23.292 50.245 24.267 L 32.567 41.945 C 31.592 42.921 30.007 42.921 29.032 41.945 L 29.032 41.945 C 28.056 40.969 28.056 39.385 29.032 38.409 L 46.709 20.732 C 47.685 19.756 49.269 19.756 50.245 20.732 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/></g></svg></button>
+  <button onclick="rotYpos()" onmousedown="rotYpos()" class="clk" id="lt"><svg class="butt" style="transform:rotate(-90deg);" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 100 100" width="100pt" height="100pt"><defs><clipPath id="_clipPath_U5ns5oTiWTcb5cJGKO4Fbiv8d1iOYvaj"><rect width="100" height="100"/></clipPath></defs><g clip-path="url(#_clipPath_U5ns5oTiWTcb5cJGKO4Fbiv8d1iOYvaj)"><path d="M 50 20 L 50 20 C 51.38 20 52.5 21.12 52.5 22.5 L 52.5 77.5 C 52.5 78.88 51.38 80 50 80 L 50 80 C 48.62 80 47.5 78.88 47.5 77.5 L 47.5 22.5 C 47.5 21.12 48.62 20 50 20 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><path d="M 48.185 20.685 L 48.185 20.685 C 49.161 19.709 50.821 19.785 51.889 20.854 L 69.23 38.194 C 70.298 39.263 70.374 40.923 69.398 41.898 L 69.398 41.898 C 68.423 42.874 66.763 42.798 65.694 41.73 L 48.354 24.389 C 47.285 23.321 47.209 21.661 48.185 20.685 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><path d="M 50.245 20.732 L 50.245 20.732 C 51.221 21.707 51.221 23.292 50.245 24.267 L 32.567 41.945 C 31.592 42.921 30.007 42.921 29.032 41.945 L 29.032 41.945 C 28.056 40.969 28.056 39.385 29.032 38.409 L 46.709 20.732 C 47.685 19.756 49.269 19.756 50.245 20.732 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/></g></svg></button>
+  <button onclick="rotYneg()" onmousedown="rotYneg()" class="clk" id="rt"><svg class="butt" style="transform:rotate(90deg);" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 100 100" width="100pt" height="100pt"><defs><clipPath id="_clipPath_U5ns5oTiWTcb5cJGKO4Fbiv8d1iOYvaj"><rect width="100" height="100"/></clipPath></defs><g clip-path="url(#_clipPath_U5ns5oTiWTcb5cJGKO4Fbiv8d1iOYvaj)"><path d="M 50 20 L 50 20 C 51.38 20 52.5 21.12 52.5 22.5 L 52.5 77.5 C 52.5 78.88 51.38 80 50 80 L 50 80 C 48.62 80 47.5 78.88 47.5 77.5 L 47.5 22.5 C 47.5 21.12 48.62 20 50 20 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><path d="M 48.185 20.685 L 48.185 20.685 C 49.161 19.709 50.821 19.785 51.889 20.854 L 69.23 38.194 C 70.298 39.263 70.374 40.923 69.398 41.898 L 69.398 41.898 C 68.423 42.874 66.763 42.798 65.694 41.73 L 48.354 24.389 C 47.285 23.321 47.209 21.661 48.185 20.685 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><path d="M 50.245 20.732 L 50.245 20.732 C 51.221 21.707 51.221 23.292 50.245 24.267 L 32.567 41.945 C 31.592 42.921 30.007 42.921 29.032 41.945 L 29.032 41.945 C 28.056 40.969 28.056 39.385 29.032 38.409 L 46.709 20.732 C 47.685 19.756 49.269 19.756 50.245 20.732 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/></g></svg></button>
+  <button onclick="rotXpos()" onmousedown="rotXpos()" class="clk" id="dn"><svg class="butt" style="transform:rotate(180deg);" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 100 100" width="100pt" height="100pt"><defs><clipPath id="_clipPath_U5ns5oTiWTcb5cJGKO4Fbiv8d1iOYvaj"><rect width="100" height="100"/></clipPath></defs><g clip-path="url(#_clipPath_U5ns5oTiWTcb5cJGKO4Fbiv8d1iOYvaj)"><path d="M 50 20 L 50 20 C 51.38 20 52.5 21.12 52.5 22.5 L 52.5 77.5 C 52.5 78.88 51.38 80 50 80 L 50 80 C 48.62 80 47.5 78.88 47.5 77.5 L 47.5 22.5 C 47.5 21.12 48.62 20 50 20 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><path d="M 48.185 20.685 L 48.185 20.685 C 49.161 19.709 50.821 19.785 51.889 20.854 L 69.23 38.194 C 70.298 39.263 70.374 40.923 69.398 41.898 L 69.398 41.898 C 68.423 42.874 66.763 42.798 65.694 41.73 L 48.354 24.389 C 47.285 23.321 47.209 21.661 48.185 20.685 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/><path d="M 50.245 20.732 L 50.245 20.732 C 51.221 21.707 51.221 23.292 50.245 24.267 L 32.567 41.945 C 31.592 42.921 30.007 42.921 29.032 41.945 L 29.032 41.945 C 28.056 40.969 28.056 39.385 29.032 38.409 L 46.709 20.732 C 47.685 19.756 49.269 19.756 50.245 20.732 Z" style="stroke:none;fill:#000000;stroke-miterlimit:10;"/></g></svg></button>
+  <button onclick="RtFaceClk()" class="clk" id="RtFClk">R</button>
+  <button onclick="RtFaceAntiClk()" class="clk" id="RtFAntiClk">R"</button>
+  <button onclick="LtFaceClk()" class="clk" id="LtFClk">L</button>
+  <button onclick="LtFaceAntiClk()" class="clk" id="LtFAntiClk">L"</button>
+  <button onclick="FtFaceClk()" class="clk" id="FtFClk">F</button>
+  <button onclick="FtFaceAntiClk()" class="clk" id="FtFAntiClk">F"</button>
+  <button onclick="BkFaceClk()" class="clk" id="BkFClk">B</button>
+  <button onclick="BkFaceAntiClk()" class="clk" id="BkFAntiClk">B"</button>
+  <button onclick="rotUpFaceClk()" class="clk" id="UpFClk">U</button>
+  <button onclick="rotUpFaceAntiClk()" class="clk" id="UpFAntiClk">U"</button>
+  <button onclick="rotDnFaceClk()" class="clk" id="DnFClk">D</button>
+  <button onclick="rotDnFaceAntiClk()" class="clk" id="DnFAntiClk">D"</button>
+</div>
+</body>
+</html>
